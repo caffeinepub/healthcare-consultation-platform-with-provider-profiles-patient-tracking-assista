@@ -1,2 +1,3 @@
-# healthcare-consultation-platform-with-provider-profiles-patient-tracking-assista
-Exported from Caffeine project: Healthcare consultation platform with provider profiles, patient tracking assistant, and fitness memberships
+## Healthcare consultation platform with provider profiles, patient tracking assistant, and fitness memberships
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

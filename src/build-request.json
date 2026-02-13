@@ -1,0 +1,237 @@
+{
+  "kind": "build_request",
+  "title": "Healthcare consultation platform with provider profiles, patient tracking assistant, and fitness memberships",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create the core information architecture and navigation for a personal website that supports three baseline provider categories: gynecologists, psychologists, and nutritionists, with a directory, profile detail pages, and a clear patient flow to connect with a provider.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "want a personal website which shows the doctor profiles of gynecologists, psychologists and nutritionists. These three as a ground level base."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can browse a directory filtered by the three categories (gynecology, psychology, nutrition).",
+        "Each provider has a profile detail page with at least: name, category, bio, services (online/offline), and contact/booking CTA.",
+        "Primary navigation includes: Providers, Consultations, My Care (records), Fitness (Zumba/Gym), and Memberships/Pricing."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement backend data models and APIs to store and retrieve provider profiles for gynecologists, psychologists, and nutritionists, and expose query endpoints for directory listing and profile detail retrieval.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "shows the doctor profiles of gynecologists, psychologists and nutritionists"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend supports creating/updating/deleting provider profiles (restricted access) and public read endpoints for listing and detail.",
+        "Provider profile includes fields to support online and offline availability.",
+        "Frontend loads provider lists and details from backend APIs (no hardcoded demo-only data in production flow)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add patient authentication using Internet Identity and persist a per-patient profile needed for personalized experiences (e.g., preferences, description/needs, and saved items).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Each customer should have their personalized chatbot ..."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can sign in/out with Internet Identity.",
+        "Backend stores a patient profile keyed by the authenticated principal.",
+        "Frontend shows a signed-in state and a basic account area to view/edit patient description and needs."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Support online and offline consultations by enabling patients to request, schedule, and view consultation appointments with listed providers, including modality (online/offline), time, status, and notes.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "It have to be online consultancies and offline consultancies too. They can speak online, they can speak offline"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Patients can create an appointment request with provider, modality (online/offline), and preferred time.",
+        "Patients can see a list of their appointments with statuses (e.g., requested/confirmed/completed/cancelled).",
+        "For online consultations, the UI supports capturing a meeting link field (stored in backend) without implementing real-time calling."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement a per-patient “chatbot-style” assistant UI and backend storage that tracks patient-entered items over time: doctor prescriptions, doctor meetings/appointments, doctor records, nutrition surveys, habits, and lifestyle notes; the assistant must be personalized to each patient and continue from prior history.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "each have their chatbot. Each customer should have their personalized chatbot which can track their movements about their doctor prescriptions, their doctor meetings and their doctor records and their nutrition surveys and their habits and their lifestyles and whatever things and then carry on to the next thing."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each signed-in patient has a chat-style timeline that persists across sessions.",
+        "The assistant supports structured capture flows for at least: prescriptions, records, nutrition survey entries, habits/lifestyle notes, and appointment summaries.",
+        "Backend stores assistant conversation entries and structured tracked items per patient, and the assistant UI can resume from existing history."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add an inbuilt nutrition/food feature that adjusts recommendations based on the patient’s description and needs, using deterministic rules and patient-entered nutrition survey data (no external AI services).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "inbuilt foot feature which can adjust according to patient which can adjust according to the patient's description and patient's needs keeping in mind"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Patients can complete/edit a nutrition survey (e.g., goals, dietary preferences, allergies, activity level).",
+        "The app generates nutrition guidance/recommendations based on saved profile + survey using rule-based logic and displays them in a dedicated Nutrition area.",
+        "Recommendations update after the patient edits their description/needs or survey."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Create a Fitness section that lists online Zumba and online gym options, and also lists offline Zumba/gym options filtered by a patient-provided location input (e.g., city/area/ZIP), without using GPS or map integrations.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "show online Zumba, online Zim and offline Zumba, offline Zim near her places or if it is offline near her places. If it is online we can provide them"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Fitness listings support type (Zumba/Gym), mode (online/offline), and for offline listings a searchable location field stored in backend.",
+        "Users can filter offline listings by entering a location string; results update accordingly.",
+        "Online listings are browseable without location input."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement membership and pricing configuration for fitness services, supporting platform fee plus day/weekly/monthly/yearly membership options, and display these plans clearly on the Fitness and Pricing pages (no payment processing required).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "each thing should have a separate platform fee, day membership, monthly membership, weekly membership and yearly membership"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend supports defining membership plans per fitness offering (platform fee + durations and prices).",
+        "Frontend displays plan options for each fitness offering and a consolidated Pricing page.",
+        "Patients can select a plan and see it reflected in their account as an active/selected plan (even if not paid)."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Introduce a “VIP treatment” tier concept in the UI and data model that can be associated with a patient (e.g., VIP status/benefits label) and shown across the experience while keeping costs/benefits configurable by admins.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "giving patient a personalized VIP treatment at low cost"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores a VIP tier/status for a patient and configurable label/description fields for display.",
+        "Frontend shows VIP status on the patient account area and uses it to annotate relevant pages (e.g., Providers, Fitness, Pricing)."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Add a minimal admin management area (restricted to an allowlist of admin principals) to manage provider profiles, fitness listings, and membership plan definitions directly in the app.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "we have already provided the doctor profiles to the website"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Non-admin users cannot access admin screens or admin APIs.",
+        "Admins can create/edit/delete provider profiles, fitness listings, and pricing plans.",
+        "Changes made in admin are reflected in public browsing views."
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Apply a cohesive, modern visual theme (colors, typography, spacing, and layout) appropriate for a healthcare + wellness platform and enforce it consistently across all pages; avoid blue/purple as primary colors.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All primary pages (Providers, Provider Detail, Consultations, Assistant/My Care, Nutrition, Fitness, Pricing, Account, Admin) share consistent styling and components.",
+        "Theme uses a non-blue/purple primary palette and maintains accessibility (readable contrast, clear typography)."
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Add and render required static brand/illustration assets in the frontend (stored under frontend/public/assets/generated) and use them in the layout (e.g., header/hero/category areas) without serving images from the backend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced by the UI.",
+        "Images load correctly in production build and are not fetched through backend endpoints."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (no multi-service architecture).",
+    "Use Internet Identity for authentication; no third-party auth providers.",
+    "Do not implement real-time calling/chat via WebSockets; online consultation may store/display meeting links only.",
+    "Do not use external AI/LLM services; the chatbot must be deterministic/rule-based and based on stored patient data.",
+    "Do not use GPS/maps/geolocation APIs; offline fitness “near me” must be based on user-entered location text.",
+    "Frontend must not modify files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT (compose them instead)."
+  ],
+  "nonGoals": [
+    "Payment processing and payouts to providers/fitness studios (plans can be selectable/display-only).",
+    "Automated medical diagnosis or clinical decision-making.",
+    "True natural-language AI chatbot responses (only a guided assistant with rule-based logic and structured capture).",
+    "Video/audio calling built into the app."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Healthcare + wellness wordmark logo (logo.dim_512x192.png)",
+      "Soft abstract wellness hero illustration with warm, calm tones (hero-illustration.dim_1600x900.png)",
+      "Three category icons set: gynecologist, psychologist, nutritionist in a consistent outline style (category-icons.dim_512x512.png)",
+      "Two fitness icons: zumba and gym in a consistent outline style (fitness-icons.dim_512x512.png)"
+    ],
+    "edits": []
+  }
+}

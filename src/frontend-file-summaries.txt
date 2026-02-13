@@ -1,0 +1,3 @@
+{
+  "frontend/src/pages/admin/AdminMembershipPlansPanel.tsx": "Admin panel component for managing membership plans with CRUD operations (create, read, update, delete) including form dialogs and table display. Supports adding, editing, and deleting membership plans with name, description, price, and duration fields."
+}

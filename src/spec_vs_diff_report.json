@@ -1,0 +1,157 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-12T18:40:05.141Z",
+  "summary": "Diff adds a new Motoko backend actor with basic provider/patient/consultation/fitness/membership stores and a React frontend with routing, Internet Identity auth gating, admin dashboard panels, VIP badge UI, deterministic nutrition rules helper, and several feature pages. However, multiple BuildRequest requirements appear only partially implemented or not evidenced in the diff summary (notably provider update/delete, meeting link storage, assistant persistence, nutrition survey storage/UI, membership plan structure/selection, VIP tier configurability, and required static image assets usage).",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Provider directory must be filterable by the three baseline categories (gynecology, psychology, nutrition) and provider profiles must include name, category, bio, services (online/offline), and a contact/booking CTA.",
+      "reason": "The diff shows routing for providers and a provider admin form using free-text \"specialization\" plus location/online, but no evidence of category-specific filtering UI/data model, no bio/services fields, and no explicit contact/booking CTA on provider detail.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/admin/AdminProvidersPanel.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Backend must support creating/updating/deleting provider profiles (restricted) plus public read endpoints for listing and detail; provider profile must include fields to support online and offline availability; frontend must load providers from backend (not hardcoded).",
+      "reason": "Backend evidence includes addProvider (admin), listProviders, getProvider, but no update/delete endpoints are shown. Provider fields shown (id/name) are incomplete in the truncated view, and the admin UI only supports adding providers (no edit/delete shown).",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/AdminProvidersPanel.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Consultations must include modality, time, status, notes, and for online consultations capture/store a meeting link field (no real-time calling).",
+      "reason": "Consultations UI captures provider, modality, preferred time, and notes, but no meeting-link field is shown. Backend snippet does not evidence any meeting-link field either (truncated).",
+      "evidence": [
+        "frontend/src/pages/consultations/ConsultationsPage.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Per-patient chatbot-style assistant timeline must persist across sessions with backend storage of conversation entries and tracked items (prescriptions, records, nutrition survey entries, habits/lifestyle notes, appointment summaries).",
+      "reason": "MyCareAssistantPage stores entries only in local React state with no backend queries/mutations, so it will not persist across sessions. No backend assistant-entry APIs are evidenced in the visible backend snippet.",
+      "evidence": [
+        "frontend/src/pages/my-care/MyCareAssistantPage.tsx",
+        "backend/main.mo",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Nutrition feature must include a nutrition survey (complete/edit), backend storage of survey data, and rule-based recommendations that update when profile/survey changes, shown in a dedicated Nutrition area.",
+      "reason": "A deterministic rule generator exists, but there is no evidence of Nutrition survey UI, survey persistence in backend, or wiring that recomputes recommendations based on saved profile + stored survey. NutritionPage is routed but not shown in the diff summary.",
+      "evidence": [
+        "frontend/src/lib/nutrition/rules.ts",
+        "frontend/src/App.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Membership/pricing must support platform fee plus day/weekly/monthly/yearly options per fitness offering; frontend must show plans on Fitness and Pricing pages; patients can select a plan and see it in their account.",
+      "reason": "Admin membership plan model shown contains only id/name/description/price/duration, with no platform fee and no association to a specific fitness offering. No evidence is shown for plan display on Fitness/Pricing pages, nor patient plan selection reflected in account.",
+      "evidence": [
+        "frontend/src/pages/admin/AdminMembershipPlansPanel.tsx",
+        "backend/main.mo",
+        "frontend/src/pages/fitness/FitnessPage.tsx",
+        "frontend/src/pages/account/AccountPage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "VIP tier/status must be configurable by admins with label/description fields stored in backend and shown across experience.",
+      "reason": "Frontend shows a boolean VIP badge and tooltip text, and profile creation stores `isVIP: false`, but there is no evidence of admin-configurable VIP label/description fields or backend APIs/data model supporting configurable VIP tier metadata.",
+      "evidence": [
+        "frontend/src/components/vip/VIPBadge.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/pages/account/AccountPage.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Admin area must allow create/edit/delete for provider profiles, fitness listings, and membership plan definitions; non-admin users cannot access admin screens or admin APIs; changes reflect in public views.",
+      "reason": "AdminPage gates UI by `useIsCallerAdmin`, and fitness/plans panels show add/update/delete hooks, but provider admin panel only shows add provider (no update/delete). Backend provider APIs shown only include add/list/get (no update/delete).",
+      "evidence": [
+        "frontend/src/pages/admin/AdminPage.tsx",
+        "frontend/src/pages/admin/AdminProvidersPanel.tsx",
+        "frontend/src/pages/admin/AdminFitnessPanel.tsx",
+        "frontend/src/pages/admin/AdminMembershipPlansPanel.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "requirement": "Cohesive modern theme across all pages; avoid blue/purple as primary colors.",
+      "reason": "There is explicit use of blue/purple badge color classes in MyCareAssistantPage, which conflicts with the requirement to avoid blue/purple as primary colors (at least suggests inconsistent palette usage). Full theme configuration is not evidenced in the diff summary.",
+      "evidence": [
+        "frontend/src/pages/my-care/MyCareAssistantPage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "requirement": "Add and render required static brand/illustration assets under frontend/public/assets/generated (logo, hero illustration, category icons, fitness icons) and reference them in UI.",
+      "reason": "UI references only the logo asset. No evidence is shown for the hero illustration or icon sets being present/used, and the diff summary does not list any added files under frontend/public/assets/generated.",
+      "evidence": [
+        "frontend/src/components/layout/AppLayout.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Admin access initialization via a secret URL parameter token (caffeineAdminToken) and calling a backend `_initializeAccessControlWithSecret` method from the frontend actor hook.",
+      "reason": "BuildRequest requires admin management restricted to an allowlist of admin principals; it does not request a secret token mechanism passed via URL parameters.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Provider IDs generated as random Principals in the admin UI when adding a provider.",
+      "reason": "BuildRequest does not specify generating fake/random Principal IDs for provider profiles; typically provider IDs would be stable identifiers stored/managed by admins.",
+      "evidence": [
+        "frontend/src/pages/admin/AdminProvidersPanel.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.66,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/AuthGate.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/components/vip/VIPBadge.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/nutrition/rules.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/account/AccountPage.tsx",
+    "frontend/src/pages/admin/AdminFitnessPanel.tsx",
+    "frontend/src/pages/admin/AdminMembershipPlansPanel.tsx",
+    "frontend/src/pages/admin/AdminPage.tsx",
+    "frontend/src/pages/admin/AdminProvidersPanel.tsx",
+    "frontend/src/pages/consultations/ConsultationsPage.tsx",
+    "frontend/src/pages/fitness/FitnessPage.tsx",
+    "frontend/src/pages/my-care/MyCareAssistantPage.tsx",
+    "frontend/src/pages/nutrition/NutritionPage.tsx",
+    "frontend/src/pages/pricing/PricingPage.tsx",
+    "frontend/src/pages/providers/ProviderDetailPage.tsx",
+    "frontend/src/pages/providers/ProvidersDirectoryPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

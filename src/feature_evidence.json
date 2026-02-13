@@ -1,0 +1,242 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-the-core-information-architecture-and-navigation-for-a-personal-website-that-supports-three-baseline-provider-categories-gynecologists-psychologists-and-nutritionists-with-a-directory-profile-detail-pages-and-a-clear-patient-flow-to-connect-with-a-provider",
+      "featureTitle": "Create the core information architecture and navigation for a personal website that supports three baseline provider categories: gynecologists, psychologists, and nutritionists, with a directory, profile detail pages, and a clear patient flow to connect with a provider.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/pages/providers/ProviderDetailPage.tsx",
+        "frontend/src/pages/providers/ProvidersDirectoryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-patient-authentication-using-internet-identity-and-persist-a-per-patient-profile-needed-for-personalized-experiences-e-g-preferences-description-needs-and-saved-items",
+      "featureTitle": "Add patient authentication using Internet Identity and persist a per-patient profile needed for personalized experiences (e.g., preferences, description/needs, and saved items).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/AuthGate.tsx",
+        "frontend/src/pages/account/AccountPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-support-online-and-offline-consultations-by-enabling-patients-to-request-schedule-and-view-consultation-appointments-with-listed-providers-including-modality-online-offline-time-status-and-notes",
+      "featureTitle": "Support online and offline consultations by enabling patients to request, schedule, and view consultation appointments with listed providers, including modality (online/offline), time, status, and notes.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/consultations/ConsultationsPage.tsx",
+        "frontend/src/pages/providers/ProviderDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-per-patient-chatbot-style-assistant-ui-and-backend-storage-that-tracks-patient-entered-items-over-time-doctor-prescriptions-doctor-meetings-appointments-doctor-records-nutrition-surveys-habits-and-lifestyle-notes-the-assistant-must-be-personalized-to-each-patient-and-continue-from-prior-history",
+      "featureTitle": "Implement a per-patient “chatbot-style” assistant UI and backend storage that tracks patient-entered items over time: doctor prescriptions, doctor meetings/appointments, doctor records, nutrition surveys, habits, and lifestyle notes; the assistant must be personalized to each patient and continue from prior history.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/my-care/MyCareAssistantPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-inbuilt-nutrition-food-feature-that-adjusts-recommendations-based-on-the-patient-s-description-and-needs-using-deterministic-rules-and-patient-entered-nutrition-survey-data-no-external-ai-services",
+      "featureTitle": "Add an inbuilt nutrition/food feature that adjusts recommendations based on the patient’s description and needs, using deterministic rules and patient-entered nutrition survey data (no external AI services).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/lib/nutrition/rules.ts",
+        "frontend/src/pages/nutrition/NutritionPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-fitness-section-that-lists-online-zumba-and-online-gym-options-and-also-lists-offline-zumba-gym-options-filtered-by-a-patient-provided-location-input-e-g-city-area-zip-without-using-gps-or-map-integrations",
+      "featureTitle": "Create a Fitness section that lists online Zumba and online gym options, and also lists offline Zumba/gym options filtered by a patient-provided location input (e.g., city/area/ZIP), without using GPS or map integrations.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/fitness/FitnessPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-membership-and-pricing-configuration-for-fitness-services-supporting-platform-fee-plus-day-weekly-monthly-yearly-membership-options-and-display-these-plans-clearly-on-the-fitness-and-pricing-pages-no-payment-processing-required",
+      "featureTitle": "Implement membership and pricing configuration for fitness services, supporting platform fee plus day/weekly/monthly/yearly membership options, and display these plans clearly on the Fitness and Pricing pages (no payment processing required).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/account/AccountPage.tsx",
+        "frontend/src/pages/fitness/FitnessPage.tsx",
+        "frontend/src/pages/pricing/PricingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-introduce-a-vip-treatment-tier-concept-in-the-ui-and-data-model-that-can-be-associated-with-a-patient-e-g-vip-status-benefits-label-and-shown-across-the-experience-while-keeping-costs-benefits-configurable-by-admins",
+      "featureTitle": "Introduce a “VIP treatment” tier concept in the UI and data model that can be associated with a patient (e.g., VIP status/benefits label) and shown across the experience while keeping costs/benefits configurable by admins.",
+      "files": [
+        "frontend/src/components/vip/VIPBadge.tsx",
+        "frontend/src/pages/account/AccountPage.tsx",
+        "frontend/src/pages/fitness/FitnessPage.tsx",
+        "frontend/src/pages/pricing/PricingPage.tsx",
+        "frontend/src/pages/providers/ProvidersDirectoryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-minimal-admin-management-area-restricted-to-an-allowlist-of-admin-principals-to-manage-provider-profiles-fitness-listings-and-membership-plan-definitions-directly-in-the-app",
+      "featureTitle": "Add a minimal admin management area (restricted to an allowlist of admin principals) to manage provider profiles, fitness listings, and membership plan definitions directly in the app.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/admin/AdminFitnessPanel.tsx",
+        "frontend/src/pages/admin/AdminMembershipPlansPanel.tsx",
+        "frontend/src/pages/admin/AdminPage.tsx",
+        "frontend/src/pages/admin/AdminProvidersPanel.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-cohesive-modern-visual-theme-colors-typography-spacing-and-layout-appropriate-for-a-healthcare-wellness-platform-and-enforce-it-consistently-across-all-pages-avoid-blue-purple-as-primary-colors",
+      "featureTitle": "Apply a cohesive, modern visual theme (colors, typography, spacing, and layout) appropriate for a healthcare + wellness platform and enforce it consistently across all pages; avoid blue/purple as primary colors.",
+      "files": [
+        "frontend/index.css",
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-and-render-required-static-brand-illustration-assets-in-the-frontend-stored-under-frontend-public-assets-generated-and-use-them-in-the-layout-e-g-header-hero-category-areas-without-serving-images-from-the-backend",
+      "featureTitle": "Add and render required static brand/illustration assets in the frontend (stored under frontend/public/assets/generated) and use them in the layout (e.g., header/hero/category areas) without serving images from the backend.",
+      "files": [
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/pages/fitness/FitnessPage.tsx",
+        "frontend/src/pages/providers/ProvidersDirectoryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

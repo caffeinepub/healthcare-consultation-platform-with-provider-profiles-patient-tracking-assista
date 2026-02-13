@@ -1,0 +1,405 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Healthcare consultation platform frontend (providers, care assistant, fitness, memberships, admin)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Create core navigation + provider directory and provider profile detail pages for gynecology/psychology/nutrition with a clear connect flow.",
+      "acceptanceCriteria": [
+        "Users can browse a directory filtered by the three categories (gynecology, psychology, nutrition).",
+        "Each provider has a profile detail page with at least: name, category, bio, services (online/offline), and contact/booking CTA.",
+        "Primary navigation includes: Providers, Consultations, My Care (records), Fitness (Zumba/Gym), and Memberships/Pricing."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell with routing and top-level layout; include required primary navigation destinations (Providers, Consultations, My Care, Nutrition, Fitness, Pricing, Account, Admin). Use shadcn-ui components for navigation/layout primitives (e.g., header, menus, cards) and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create a reusable layout with header + main container and navigation links matching the IA. Use shadcn-ui components to ensure consistent structure and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/providers/ProvidersDirectoryPage.tsx",
+          "operation": "create",
+          "description": "Implement provider directory page with category filter limited to gynecology/psychology/nutrition and list rendering. Load providers via the backend actor and show a connect CTA per provider. Use shadcn-ui components for filters/list/cards and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/providers/ProviderDetailPage.tsx",
+          "operation": "create",
+          "description": "Implement provider detail page that displays name, category/specialization, bio/description, online/offline availability, and CTA to request/schedule a consultation (linking into consultations flow). Use shadcn-ui components for typography/cards/buttons and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useProviders.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to load provider list and provider detail from the backend actor (listProviders/getProvider) for directory and detail pages."
+        },
+        {
+          "path": "frontend/src/components/providers/ProviderCategoryFilter.tsx",
+          "operation": "create",
+          "description": "Create a category filter UI constrained to the three baseline categories; compose with shadcn-ui form controls and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add Internet Identity sign-in/out UX and a patient account area to view/edit patient profile fields for personalization.",
+      "acceptanceCriteria": [
+        "Users can sign in/out with Internet Identity.",
+        "Backend stores a patient profile keyed by the authenticated principal.",
+        "Frontend shows a signed-in state and a basic account area to view/edit patient description and needs."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/AuthGate.tsx",
+          "operation": "create",
+          "description": "Create an auth gate that requires Internet Identity login before showing personal areas (Account, Consultations, My Care, Nutrition, plan selection, Admin). Use the authorization component guidance to enforce 'login before seeing any application data' and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create a login/logout button using the authorization component’s frontend guidance (useInternetIdentity + clearing React Query cache on logout). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/account/AccountPage.tsx",
+          "operation": "create",
+          "description": "Implement account page to view/edit patient profile (name/age/description/preferences) and show VIP status and selected membership plan state. Use authorization component guidance for profile setup (avoid principal display; prompt for name on first login) and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePatientProfile.ts",
+          "operation": "create",
+          "description": "Add React Query hooks/mutations for getCallerUserProfile/getPatientProfile and saveCallerUserProfile/savePatientProfile; integrate with auth state from useInternetIdentity."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire auth-aware navigation: show LoginButton; protect authenticated routes with AuthGate; add route for Account page. Use shadcn-ui components where appropriate and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Enable patients to request and view consultation appointments with modality, time, status, notes, and an optional meeting link field for online consults.",
+      "acceptanceCriteria": [
+        "Patients can create an appointment request with provider, modality (online/offline), and preferred time.",
+        "Patients can see a list of their appointments with statuses (e.g., requested/confirmed/completed/cancelled).",
+        "For online consultations, the UI supports capturing a meeting link field (stored in backend) without implementing real-time calling."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/consultations/ConsultationsPage.tsx",
+          "operation": "create",
+          "description": "Create consultations page showing the signed-in patient’s consultation list (getConsultations) with status chips and details; include a request form entry point. Use shadcn-ui components for tables/forms/badges and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/consultations/RequestConsultationForm.tsx",
+          "operation": "create",
+          "description": "Create a consultation request form that selects provider, modality (online/offline), preferred time, and notes; include conditional meeting link input for online modality and display it (no real-time calling). Use shadcn-ui form components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useConsultations.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for getConsultations and mutation for requestConsultation; invalidate consultation list on success."
+        },
+        {
+          "path": "frontend/src/pages/providers/ProviderDetailPage.tsx",
+          "operation": "modify",
+          "description": "Wire the provider CTA to prefill/open the consultation request flow (e.g., navigate to Consultations with provider preselected). Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register route and navigation item for Consultations and ensure it is behind AuthGate. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement a per-patient chat-style assistant/timeline UI to capture and review structured care items (prescriptions, records, surveys, habits, appointment summaries) and resume from prior history.",
+      "acceptanceCriteria": [
+        "Each signed-in patient has a chat-style timeline that persists across sessions.",
+        "The assistant supports structured capture flows for at least: prescriptions, records, nutrition survey entries, habits/lifestyle notes, and appointment summaries.",
+        "Backend stores assistant conversation entries and structured tracked items per patient, and the assistant UI can resume from existing history."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/my-care/MyCareAssistantPage.tsx",
+          "operation": "create",
+          "description": "Create the My Care assistant page as a chat-style timeline UI that loads existing history on mount and supports adding new entries via guided structured capture. Use shadcn-ui components for timeline/chat cards and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/assistant/AssistantComposer.tsx",
+          "operation": "create",
+          "description": "Create a guided entry composer that lets patients select an entry type (prescription, record, nutrition survey entry, habits/lifestyle note, appointment summary) and fills a structured form before appending to the timeline. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAssistant.ts",
+          "operation": "create",
+          "description": "Add client-side state + React Query hooks for loading/saving assistant history and tracked items via backend actor capabilities. Ensure history resumes across sessions by always hydrating from backend after login."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register My Care route and ensure it is behind AuthGate; include it in primary navigation. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add a Nutrition area with a rule-based recommendation experience driven by patient profile + nutrition survey inputs (no external AI).",
+      "acceptanceCriteria": [
+        "Patients can complete/edit a nutrition survey (e.g., goals, dietary preferences, allergies, activity level).",
+        "The app generates nutrition guidance/recommendations based on saved profile + survey using rule-based logic and displays them in a dedicated Nutrition area.",
+        "Recommendations update after the patient edits their description/needs or survey."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/nutrition/NutritionPage.tsx",
+          "operation": "create",
+          "description": "Create a Nutrition page with a nutrition survey editor and a recommendations panel that updates after saves/edits. Use shadcn-ui components for forms/cards/alerts and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/nutrition/NutritionSurveyForm.tsx",
+          "operation": "create",
+          "description": "Create a deterministic nutrition survey form (goals/preferences/allergies/activity level) persisted against the patient’s saved data. Use shadcn-ui form components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/nutrition/rules.ts",
+          "operation": "create",
+          "description": "Implement deterministic, rule-based recommendation generation using stored patient description/needs/preferences and survey values (no external AI/LLM services)."
+        },
+        {
+          "path": "frontend/src/hooks/useNutrition.ts",
+          "operation": "create",
+          "description": "Add hooks to load/save nutrition survey data as part of patient records and to compute recommendations client-side after profile/survey changes."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register Nutrition route and ensure it is behind AuthGate; include it in navigation. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Create a Fitness section listing online Zumba/Gym and offline Zumba/Gym filterable by user-entered location text (no GPS/maps).",
+      "acceptanceCriteria": [
+        "Fitness listings support type (Zumba/Gym), mode (online/offline), and for offline listings a searchable location field stored in backend.",
+        "Users can filter offline listings by entering a location string; results update accordingly.",
+        "Online listings are browseable without location input."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/fitness/FitnessPage.tsx",
+          "operation": "create",
+          "description": "Create Fitness page that loads listings (listFitnessListings) and provides filters: type (Zumba/Gym), mode (online/offline), and location text filter for offline results only. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/fitness/FitnessFilters.tsx",
+          "operation": "create",
+          "description": "Create filter controls including a location text input that only affects offline listings and updates results deterministically without GPS/maps. Use shadcn-ui form controls and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useFitness.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for listFitnessListings and for memoized client-side filtering by type/mode/location text."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register Fitness route and include it in primary navigation; ensure plan selection actions are behind AuthGate. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Display membership/pricing plans for fitness offerings and allow patients to select a plan (display-only; no payments), including a consolidated Pricing page.",
+      "acceptanceCriteria": [
+        "Backend supports defining membership plans per fitness offering (platform fee + durations and prices).",
+        "Frontend displays plan options for each fitness offering and a consolidated Pricing page.",
+        "Patients can select a plan and see it reflected in their account as an active/selected plan (even if not paid)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/pricing/PricingPage.tsx",
+          "operation": "create",
+          "description": "Create a consolidated Pricing page that loads membership plans (listMembershipPlans) and presents platform fee + duration options clearly. Use shadcn-ui pricing card/table components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/memberships/MembershipPlanSelector.tsx",
+          "operation": "create",
+          "description": "Create UI to display available plans and allow a signed-in patient to select one (no payment). Persist selection into patient profile state so it can be reflected in Account. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useMemberships.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for listMembershipPlans; add a mutation helper to store selected plan in the patient profile via existing profile save capabilities."
+        },
+        {
+          "path": "frontend/src/pages/fitness/FitnessPage.tsx",
+          "operation": "modify",
+          "description": "Show plan options for each fitness offering and link to consolidated Pricing; require AuthGate for selecting a plan. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/account/AccountPage.tsx",
+          "operation": "modify",
+          "description": "Display the currently selected plan from the patient profile and provide a link to change it on Pricing/Fitness. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register Pricing route and add it to primary navigation (Memberships/Pricing). Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Surface a VIP treatment tier indicator across the UI based on the patient’s VIP status and configurable label/description.",
+      "acceptanceCriteria": [
+        "Backend stores a VIP tier/status for a patient and configurable label/description fields for display.",
+        "Frontend shows VIP status on the patient account area and uses it to annotate relevant pages (e.g., Providers, Fitness, Pricing)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/vip/VIPBadge.tsx",
+          "operation": "create",
+          "description": "Create a reusable VIP badge/annotation component that reads VIP status from patient profile and displays a VIP label/benefit snippet. Use shadcn-ui badge/tooltip components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/account/AccountPage.tsx",
+          "operation": "modify",
+          "description": "Show VIP status prominently in the account area and ensure it updates after profile refresh. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/providers/ProvidersDirectoryPage.tsx",
+          "operation": "modify",
+          "description": "Annotate relevant provider browsing UI with VIPBadge (e.g., header callout) without restricting access. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/fitness/FitnessPage.tsx",
+          "operation": "modify",
+          "description": "Annotate Fitness page with VIPBadge (e.g., VIP treatment banner/callout). Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/pricing/PricingPage.tsx",
+          "operation": "modify",
+          "description": "Annotate Pricing page with VIPBadge and VIP messaging area. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Add a restricted admin management area in the frontend to manage providers, fitness listings, and membership plans.",
+      "acceptanceCriteria": [
+        "Non-admin users cannot access admin screens or admin APIs.",
+        "Admins can create/edit/delete provider profiles, fitness listings, and pricing plans.",
+        "Changes made in admin are reflected in public browsing views."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/AdminGate.tsx",
+          "operation": "create",
+          "description": "Create an admin-only route guard that checks admin role via backend actor (isCallerAdmin/getCallerUserRole) and shows an access denied screen for non-admins. Use the authorization component’s access control UI guidance and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminPage.tsx",
+          "operation": "create",
+          "description": "Create an Admin area shell with tabs/sections for Providers, Fitness, and Membership Plans management. Use shadcn-ui tabs/forms/dialogs and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminProvidersPanel.tsx",
+          "operation": "create",
+          "description": "Implement admin CRUD UI for provider profiles (list/add/update/delete via backend actor capabilities). Use shadcn-ui tables/dialogs/forms and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminFitnessPanel.tsx",
+          "operation": "create",
+          "description": "Implement admin CRUD UI for fitness listings (list/add/update/delete) including offline location field and online toggle. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminMembershipPlansPanel.tsx",
+          "operation": "create",
+          "description": "Implement admin CRUD UI for membership plans (list/add/update/delete) and ensure it is reflected on Fitness and Pricing pages after mutations. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdmin.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for admin operations and cache invalidation (providers, fitness, membership plans) to ensure public views refresh after admin edits."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register /admin route behind AdminGate and add Admin link in nav only when caller is admin. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Apply a cohesive, modern healthcare + wellness theme across the app with a non-blue/purple primary palette and consistent typography/spacing.",
+      "acceptanceCriteria": [
+        "All primary pages (Providers, Provider Detail, Consultations, Assistant/My Care, Nutrition, Fitness, Pricing, Account, Admin) share consistent styling and components.",
+        "Theme uses a non-blue/purple primary palette and maintains accessibility (readable contrast, clear typography)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Adjust design tokens (CSS variables) to a warm, calm, non-blue/purple primary palette; ensure accessible contrast for text/background/borders and consistent radii/spacing."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Align Tailwind theme extension with updated tokens and ensure typography/spacing utilities support consistent layouts (no blue/purple as primary)."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Ensure consistent header, page container widths, section spacing, and typography scale across routes using composed shadcn-ui primitives; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure all primary pages share consistent layout wrappers and navigation styling. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create a src-level CSS entry that re-exports/imports the global styles so frontend/src/main.tsx can reliably import ./index.css; keep styling centralized in frontend/index.css."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Add required static brand/illustration assets under frontend/public/assets/generated and reference them from the UI (no backend image serving).",
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced by the UI.",
+        "Images load correctly in production build and are not fetched through backend endpoints."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/brand/BrandAssets.tsx",
+          "operation": "create",
+          "description": "Create a small brand/asset component set that references static images at frontend/public/assets/generated/logo.dim_512x192.png, frontend/public/assets/generated/hero-illustration.dim_1600x900.png, frontend/public/assets/generated/category-icons.dim_512x512.png, and frontend/public/assets/generated/fitness-icons.dim_512x512.png in header/hero/category areas. Use shadcn-ui layout components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Render the wordmark logo from frontend/public/assets/generated/logo.dim_512x192.png in the header and incorporate the hero illustration frontend/public/assets/generated/hero-illustration.dim_1600x900.png in an existing required page section (e.g., Providers top area) without adding new top-level routes. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/providers/ProvidersDirectoryPage.tsx",
+          "operation": "modify",
+          "description": "Use frontend/public/assets/generated/category-icons.dim_512x512.png to visually label the three provider categories within the directory UI. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/fitness/FitnessPage.tsx",
+          "operation": "modify",
+          "description": "Use frontend/public/assets/generated/fitness-icons.dim_512x512.png to label Zumba vs Gym within Fitness UI. Use shadcn-ui components and verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

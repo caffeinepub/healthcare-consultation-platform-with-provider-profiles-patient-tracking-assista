@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Personal healthcare website featuring provider profiles (gynecologists, psychologists, nutritionists), online and offline consultations, personalized patient chatbots for tracking care and lifestyle data, and integrated local/online fitness (Zumba/gym) offerings with membership plans and platform fees.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Healthcare + wellness wordmark logo (logo.dim_512x192.png)\n- Soft abstract wellness hero illustration with warm, calm tones (hero-illustration.dim_1600x900.png)\n- Three category icons set: gynecologist, psychologist, nutritionist in a consistent outline style (category-icons.dim_512x512.png)\n- Two fitness icons: zumba and gym in a consistent outline style (fitness-icons.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-the-core-information-architecture-and-navigation-for-a-personal-website-that-supports-three-baseline-provider-categories-gynecologists-psychologists-and-nutritionists-with-a-directory-profile-detail-pages-and-a-clear-patient-flow-to-connect-with-a-provider",
+      "title": "Create the core information architecture and navigation for a personal website that supports three baseline provider categories: gynecologists, psychologists, and nutritionists, with a directory, profile detail pages, and a clear patient flow to connect with a provider.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-patient-authentication-using-internet-identity-and-persist-a-per-patient-profile-needed-for-personalized-experiences-e-g-preferences-description-needs-and-saved-items",
+      "title": "Add patient authentication using Internet Identity and persist a per-patient profile needed for personalized experiences (e.g., preferences, description/needs, and saved items).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-support-online-and-offline-consultations-by-enabling-patients-to-request-schedule-and-view-consultation-appointments-with-listed-providers-including-modality-online-offline-time-status-and-notes",
+      "title": "Support online and offline consultations by enabling patients to request, schedule, and view consultation appointments with listed providers, including modality (online/offline), time, status, and notes.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-per-patient-chatbot-style-assistant-ui-and-backend-storage-that-tracks-patient-entered-items-over-time-doctor-prescriptions-doctor-meetings-appointments-doctor-records-nutrition-surveys-habits-and-lifestyle-notes-the-assistant-must-be-personalized-to-each-patient-and-continue-from-prior-history",
+      "title": "Implement a per-patient “chatbot-style” assistant UI and backend storage that tracks patient-entered items over time: doctor prescriptions, doctor meetings/appointments, doctor records, nutrition surveys, habits, and lifestyle notes; the assistant must be personalized to each patient and continue from prior history.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-inbuilt-nutrition-food-feature-that-adjusts-recommendations-based-on-the-patient-s-description-and-needs-using-deterministic-rules-and-patient-entered-nutrition-survey-data-no-external-ai-services",
+      "title": "Add an inbuilt nutrition/food feature that adjusts recommendations based on the patient’s description and needs, using deterministic rules and patient-entered nutrition survey data (no external AI services).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-fitness-section-that-lists-online-zumba-and-online-gym-options-and-also-lists-offline-zumba-gym-options-filtered-by-a-patient-provided-location-input-e-g-city-area-zip-without-using-gps-or-map-integrations",
+      "title": "Create a Fitness section that lists online Zumba and online gym options, and also lists offline Zumba/gym options filtered by a patient-provided location input (e.g., city/area/ZIP), without using GPS or map integrations.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-membership-and-pricing-configuration-for-fitness-services-supporting-platform-fee-plus-day-weekly-monthly-yearly-membership-options-and-display-these-plans-clearly-on-the-fitness-and-pricing-pages-no-payment-processing-required",
+      "title": "Implement membership and pricing configuration for fitness services, supporting platform fee plus day/weekly/monthly/yearly membership options, and display these plans clearly on the Fitness and Pricing pages (no payment processing required).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-introduce-a-vip-treatment-tier-concept-in-the-ui-and-data-model-that-can-be-associated-with-a-patient-e-g-vip-status-benefits-label-and-shown-across-the-experience-while-keeping-costs-benefits-configurable-by-admins",
+      "title": "Introduce a “VIP treatment” tier concept in the UI and data model that can be associated with a patient (e.g., VIP status/benefits label) and shown across the experience while keeping costs/benefits configurable by admins.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-minimal-admin-management-area-restricted-to-an-allowlist-of-admin-principals-to-manage-provider-profiles-fitness-listings-and-membership-plan-definitions-directly-in-the-app",
+      "title": "Add a minimal admin management area (restricted to an allowlist of admin principals) to manage provider profiles, fitness listings, and membership plan definitions directly in the app.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-modern-visual-theme-colors-typography-spacing-and-layout-appropriate-for-a-healthcare-wellness-platform-and-enforce-it-consistently-across-all-pages-avoid-blue-purple-as-primary-colors",
+      "title": "Apply a cohesive, modern visual theme (colors, typography, spacing, and layout) appropriate for a healthcare + wellness platform and enforce it consistently across all pages; avoid blue/purple as primary colors.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-and-render-required-static-brand-illustration-assets-in-the-frontend-stored-under-frontend-public-assets-generated-and-use-them-in-the-layout-e-g-header-hero-category-areas-without-serving-images-from-the-backend",
+      "title": "Add and render required static brand/illustration assets in the frontend (stored under frontend/public/assets/generated) and use them in the layout (e.g., header/hero/category areas) without serving images from the backend.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Doctor profile directory for gynecologists, psychologists, and nutritionists (baseline categories)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Support online and offline consultations between patients and listed doctors",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Personalized chatbot per patient to track prescriptions, appointments/meetings, medical records, nutrition surveys, habits, and lifestyle over time",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Personalized inbuilt nutrition/food feature that adjusts recommendations based on patient descriptions and needs",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "List online and nearby offline Zumba and gym options based on patient location",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Membership and pricing support for fitness services (platform fee + day/weekly/monthly/yearly membership options)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "VIP/low-cost treatment offering concept for patients (preferred experience/pricing tier)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Implement backend data models and APIs to store and retrieve provider profiles for gynecologists, psychologists, and nutritionists, and expose query endpoints for directory listing and profile detail retrieval.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Healthcare consultation platform with provider profiles, patient tracking assistant, and fitness memberships",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
